@@ -28,8 +28,8 @@ app.set('views', __dirname + '/views');
 app.use(express.static(__dirname + '/public'));
 
 // setting the spotify-api goes here:
-app.use(express.json()) 
-app.use(express.urlencoded({ extended: true })) 
+// app.use(express.json()) 
+// app.use(express.urlencoded({ extended: true })) 
 
 // Our routes go here:
 
@@ -38,19 +38,20 @@ app.get('/homepage', (req, res) => {
   });
   
 
-  app.get('/artist-search', (req, res , next) => {
-    console.log("Hello")
-    let {q} = req.query
-    // console.log(q)
+  app.get('/artist-search', (req, res) => {
+    console.log(req.query)
 
+    const {q} = req.query
     spotifyApi
     .searchArtists(q)
     .then(data => {
-        console.log(data.body.artists.items.name);
-        console.log('The received data from the API: ', data.body.artists);// dinish work here
-        res.render('./artistsearch.hbs');
+        const item = data.body.artists.items
+        console.log('The received data from the API: ', {item})
+                console.log(item.images)
+
+        res.render('./artistResult.hbs', {target : item})
     })
-    .catch(err => console.log('The error while searching artists occurred: ', err));
+    .catch((err) => console.log('The error while searching artists occurred: ', err))
     
 })
 
