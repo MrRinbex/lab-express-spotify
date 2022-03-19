@@ -1,9 +1,9 @@
-<div id="searched-artist">
-<div class="searched-artist" >
+<div class="search-page">
     {{#each target}}
-    <img src="{{this.images.0.url}}" alt="image source">
-    <h1>{{name}}</h1>
-    <a href="/albums/someArtistIdGoesHere">View Albums</a>
+        <div class="searched-artist" >
+            <img src="{{this.images.0.url}}" alt="image source">
+            <h1>{{name}}</h1>
+            <a href="/albums/{{id}}">View Albums</a>
+        </div>    
     {{/each}}
-</div>    
 </div>
